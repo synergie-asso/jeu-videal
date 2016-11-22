@@ -1,50 +1,58 @@
-from math import log10, ceil;
-import sys;
+import pygame
+from pygame.locals import *
+from math import log
 
 
-class Display() :
+class Display:
     def __init__(self, size):
-        self.size = size;
+        self.size = size
+        pygame.init()
+        self.window = pygame.display.set_mode((540, 540))
+        red = (255, 0, 0)
 
+        pygame.display.update()
 
-    def quit(self) :
-        print("Exit Game");
+    def quit(self):
+        pygame.display.quit()
+        pygame.quit()
+        print("Exit Game")
 
-
-    def newDirection(self) :
+    def newDirection(self):
+        continuer = 1
         while True:
-            char = sys.stdin.read(1);
-            if (char == "z"):
-                print("dir : 1");
-                return 1;
-            if (char == "q"):
-                print("dir : 2");
-                return 2;
-            if (char == "s"):
-                print("dir : -1");
-                return -1;
-            if (char == "d"):
-                print("dir : -2");
-                return -2;
-            print ("Type 'z','q', 's' or 'd'");
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    return 0
+                if event.type == KEYDOWN and event.key == K_LEFT:
+                    return 2
+                if event.type == KEYDOWN and event.key == K_UP:
+                    return 1
+                if event.type == KEYDOWN and event.key == K_RIGHT:
+                    return -2
+                if event.type == KEYDOWN and event.key == K_DOWN:
+                    return -1
 
-
-
-    def print_grid (self, grid) :
-        for j in range(self.size) :
-            for i in range(self.size) :
-                if grid[i][j] == 0 :
-                    for k in range(5) :
-                        print(" ", end="");
-                else :
-                    spaces = 5 - ceil(log10(grid[i][j]))
-                    for k in range(spaces // 2) :
-                        print(" ", end="");
-                    print(grid[i][j], end="");
-                    for k in range(spaces // 2 + spaces % 2) :
-                        print(" ", end="");
-                print("|", end="");
-            print();
-            for i in range(6 * self.size) :
-                print("_", end="");
-            print();
+    def print_grid(self, grid):
+        pygame.draw.rect(self.window, (50, 50, 50), (20, 20, 500, 500));
+        pygame.display.update()
+        print();
+        sizeSquare = 500 // self.size
+        font = pygame.font.SysFont(None, 30)
+        for j in range(self.size):
+            for i in range(self.size):
+                if grid[i][j] == 0:
+                    pygame.draw.rect(self.window, (50, 50, 50), (
+                    20 + sizeSquare * i + 1, 20 + sizeSquare * j + 1, sizeSquare - 2, sizeSquare - 2));
+                else:
+                    rect = pygame.draw.rect(self.window, (255,
+                                                          255 - log(grid[i][j], 2) * 20, 20),
+                                            (20 + sizeSquare * i + 1,
+                                             20 + sizeSquare * j + 1,
+                                             sizeSquare - 2, sizeSquare - 2))
+                    number = font.render(str(grid[i][j]), 1, (10, 10, 10))
+                    textpos = number.get_rect()
+                    textpos.centerx = rect.centerx
+                    textpos.centery = rect.centery
+                    print(textpos)
+                    self.window.blit(number, textpos)
+        pygame.display.update()
