@@ -1,0 +1,149 @@
+\section{2048}
+\subsection{Présentation du jeu}
+\paragraph{}
+Le but du jeu est de faire glisser des tuiles sur une grille, pour combiner les tuiles de même valeurs et créer ainsi une tuile portant le nombre 2048. Le joueur peut toutefois continuer à jouer après cet objectif atteint pour faire le meilleur score possible.
+
+
+\paragraph{}
+2048 se joue sur une grille de 4×4 cases, avec des tuiles de couleurs et de valeurs variées (mais toujours des puissances de deux) qui peuvent être déplacées quand le joueur appuie sur les touches fléchées de son clavier.
+
+
+
+
+
+
+\paragraph{}
+Le gameplay du jeu repose sur l'utilisation des touches fléchées pour déplacer les tuiles vers la gauche, la droite, le haut ou le bas. Lors d'un mouvement, l'ensemble des tuiles du plateau sont déplacés dans la même direction jusqu'à rencontrer les bords du plateau ou une autre tuile sur leur chemin. Si deux tuiles, ayant le même nombre, entrent en collision durant le mouvement, elles fusionnent en une nouvelle tuile de valeur double (par ex. : deux tuiles de valeur « 2 » donnent une tuile de valeur « 4 »). À chaque mouvement, une tuile portant un 2 ou un 4 apparaît dans une case vide de manière aléatoire.
+
+
+\paragraph{}
+Programmer tout le jeu aurait été un peu long, nous avons déjà réalisé certaines parties du jeu, les autres fonctions à implémenter sont expliquées ci-dessous.
+
+
+\subsection{La fusion}
+
+
+\subsubsection{Résultat de la fusion}
+La première fonction calcul le chiffre affiché après la fusion de  2 carré en un.
+2 entiers sont envoyés en paramètres. Ils représentent les chiffres inscrits sur les 2 carrés qui ont fusionné. 
+
+Prototype de la fonction :
+\begin{pythonCode}
+def fusion(carre1, carre2):
+\end{pythonCode}
+
+
+\subsubsection{Une fusion ou pas de fusion}
+La deuxième fonction vérifie si une fusion doit être effectuée. 
+Comme dans la première fonction, les 2 paramètres sont les valeurs des 2 carrés qui fusionnent. 
+Elle retourne vrai (“True”), si la fusion doit être effectuée, faux (“False”) dans les autres cas.
+
+
+Prototype de la fonction :
+\begin{pythonCode}
+def isfusion(carre1, carre2):
+\end{pythonCode}
+
+
+
+
+
+
+\subsection{La fin du jeu}
+\subsubsection{Le joueur a-t-il gagné ?}
+La fonction “win” permet de vérifier si le joueur à gagner la partie. Pour cela le joueur doit avoir créé un carré avec une valeur de 2048.
+Dans cette fonction, un tableau simple est donné en argument, il contient les valeurs de tous les carrés affichés.
+Si le joueur a gagné la fonction doit retourner vrai, sinon elle retourne faux. 
+
+Prototype de la fonction :
+\begin{pythonCode}
+def win(tab):
+\end{pythonCode}
+
+
+
+
+\subsubsection{(tableau à 2 dimensions = trop complexe)}
+La fonction “check” permet de vérifier si un carré peut bouger ou non. Il peut bouger s'il y a une case vide à côté de lui ou si une case à côté de lui porte le même chiffre que lui. 
+
+
+Cette fonction récupère en paramètre, une grille qui est donc un tableau à 2 dimensions qui représente les valeurs des carré que l'on voit à l'écran, les coordonnés de départ du  carré ainsi que les coordonnées d'une destination possible de ce carré.
+
+
+Le mouvement est donc valide si la destination reste dans la grille, et que la case d'arrivée est vide ou peut fusionner avec celle de départ.
+
+
+
+
+La fonction renvoie vrai si le déplacement est possible, faux dans les autres cas. 
+
+
+
+
+
+
+Attention, dans cette fonction, contrairement à la fonction win, le tableau passé en argument est un tableau à 2 dimensions.
+Exemple d'utilisation :
+Pour accéder à la troisième ligne et cinquième colonne on utilise : 
+\begin{pythonCode}
+ grid[2][4] 
+\end{pythonCode}
+
+
+Prototype de la fonction :
+\begin{pythonCode}
+def check(grid, x,y, i, j):
+\end{pythonCode}
+
+
+
+
+
+
+
+
+\subsubsection{Le joueur a-t-il perdu ?}
+La fonction “lose” vérifie que la partie n’est pas finie. C’est-à-dire qu’il y a toujours des mouvements possibles.
+Il faut vérifier qu’il n’y a pas de cases vides et qu'aucun carré ne peut pas bouger sur une case à côté de lui, si c’est le cas, c'est la fin de la partie et on renvoie vrai sinon on renvoie faux.
+
+
+Vous pouvez vous aider de la fonction précédente pour vérifier qu'un carré ne peut pas bouger.
+
+
+Prototype de la fonction :
+\begin{pythonCode}
+def lose(grid):
+\end{pythonCode}
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Nouveau nombre (aléatoire et proba en collège j'y croit pas)} 
+Vous l'avez peut-être remarqué, le nombre générer actuellement est toujours un 2. Il faudrait qu'une fois sur 5, un 4 apparaît à la place du 2. 
+La fonction newNumber permet de générer ce nombre. Comme vous pouvez le voir, pour l'instant elle retourne toujours 2.
+Le but est qu'elle retourne aléatoirement un 4.  
+
+
+Génération de nombre entier aléatoire compris entre 0 et 9 :
+\begin{pythonCode}
+randrange(10)
+\end{pythonCode}
+
+
+
+
+Prototype de la fonction :
+\begin{pythonCode}
+def newNumber() :
+\end{pythonCode}
+
+
+
