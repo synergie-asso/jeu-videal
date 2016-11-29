@@ -28,13 +28,15 @@ class DeuxMilleQuaranteHuit:
                     self.d.quit()
                     return
                 moved = self.move_number()
-                self.add_number()
+            self.add_number()
             for i in range(size):
                 for j in range(size):
                     tab[i + size * j] = self.grid[i][j]
             if win(tab):
+                self.d.print_text("Tu as gagné !!!!!")
                 print("win")
         print("Lose")
+        self.d.print_text("Tu as perdu !!!!!")
         self.d.quit()
 
     def add_number(self):

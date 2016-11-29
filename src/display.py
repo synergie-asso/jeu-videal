@@ -7,12 +7,28 @@ class Display:
     def __init__(self, size):
         self.size = size
         pygame.init()
-        self.window = pygame.display.set_mode((540, 540))
+        self.window = pygame.display.set_mode((600, 600))
         red = (255, 0, 0)
 
         pygame.display.update()
 
+
+    def waitEvent(self):
+       for event in pygame.event.get():
+           self.size = self.size
+       while True :
+           for event in pygame.event.get():
+               if event.type == QUIT:
+                   return 
+               if event.type == KEYDOWN:
+                   return      
+
+
+
+
     def quit(self):
+        pygame.time.wait(1000)
+        self.waitEvent()
         pygame.display.quit()
         pygame.quit()
         print("Exit Game")
@@ -33,8 +49,7 @@ class Display:
                     return -1
 
     def print_grid(self, grid):
-        pygame.draw.rect(self.window, (50, 50, 50), (20, 20, 500, 500));
-        pygame.display.update()
+        pygame.draw.rect(self.window, (50, 50, 50), (50, 50, 500, 500));
         print();
         sizeSquare = 500 // self.size
         font = pygame.font.SysFont(None, 30)
@@ -42,12 +57,12 @@ class Display:
             for i in range(self.size):
                 if grid[i][j] == 0:
                     pygame.draw.rect(self.window, (50, 50, 50), (
-                    20 + sizeSquare * i + 1, 20 + sizeSquare * j + 1, sizeSquare - 2, sizeSquare - 2));
+                    50 + sizeSquare * i + 1, 50 + sizeSquare * j + 1, sizeSquare - 2, sizeSquare - 2));
                 else:
                     rect = pygame.draw.rect(self.window, (255,
                                                           255 - log(grid[i][j], 2) * 20, 20),
-                                            (20 + sizeSquare * i + 1,
-                                             20 + sizeSquare * j + 1,
+                                            (50 + sizeSquare * i + 1,
+                                             50 + sizeSquare * j + 1,
                                              sizeSquare - 2, sizeSquare - 2))
                     number = font.render(str(grid[i][j]), 1, (10, 10, 10))
                     textpos = number.get_rect()
@@ -55,10 +70,19 @@ class Display:
                     textpos.centery = rect.centery
                     print(textpos)
                     self.window.blit(number, textpos)
-        pygame.display.update()
 
     def print_score(self,score):
+        pygame.draw.rect(self.window, (20, 20, 20), (440, 10, 200, 40));
         font = pygame.font.SysFont(None, 30)
-        s = font.render("Score : "  + str(score), 1, (10, 10, 10))
-        self.window.blit(s, (220 , 40))
+        s = font.render("Score : "  + str(score), 1, (200, 200, 200))
+        self.window.blit(s, (450, 20))
         pygame.display.update()
+
+
+    def print_text(self, text):
+        pygame.draw.rect(self.window, (0, 0, 0), (5, 20, 200, 40));
+        font = pygame.font.SysFont(None, 30)
+        s = font.render(text,  1, (200, 50, 50))
+        self.window.blit(s, (10, 20))
+        pygame.display.update()
+
