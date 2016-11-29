@@ -44,7 +44,23 @@ Prototype de la fonction :
 def isfusion(carre1, carre2):
 \end{pythonCode}
 
+\pagebreak
 
+\subsection{Score}
+Cette fonction calcul le nouveau score du joueur après une fusion.
+
+Elle prend en paramètre la valeur de l'un des 2 carrés fusionnés, (le deuxième ayant la même valeur) et le score actuel du joueur et calcul le score que va avoir le joueur après la fusion.
+
+Le score est calculé de la manière suivante :
+\begin{itemize}
+\item si le score actuel du joueur, est inférieur à 100, son score est augmenté de 10 en plus de tout autre ajout.
+\item si le score actuel est divisible par 10, on ajoute 10 fois la valeur d'un carre au score actuel.
+\item si le score actuel n'est pas divisible par 10, on ajoute le résultat de la fusion au score score actuel.
+\end{itemize}
+Prototype de la fonction :
+\begin{pythonCode}
+	def scoreFusion(carre, score):
+\end{pythonCode}
 
 
 

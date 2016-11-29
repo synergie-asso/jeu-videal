@@ -13,6 +13,17 @@ def isFusion(carre1, carre2):
     # FIXME
     return False
 
+    
+def scoreFusion(carre, score):
+    '''
+    if (score < 100) :
+        score += 10
+    if (score % 10 == 0) :
+        return score + carre * 10
+    return score + carre * 2
+    '''
+    return score + 1
+
 
 def win(tab):
     '''

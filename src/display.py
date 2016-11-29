@@ -56,3 +56,9 @@ class Display:
                     print(textpos)
                     self.window.blit(number, textpos)
         pygame.display.update()
+
+    def print_score(self,score):
+        font = pygame.font.SysFont(None, 30)
+        s = font.render("Score : "  + str(score), 1, (10, 10, 10))
+        self.window.blit(s, (220 , 40))
+        pygame.display.update()

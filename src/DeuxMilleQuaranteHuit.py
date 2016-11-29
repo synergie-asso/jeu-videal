@@ -2,7 +2,7 @@ from random import randrange
 
 from src.display import Display
 from src.square import Square
-from tools import win, lose, fusion, isFusion
+from tools import win, lose, fusion, isFusion, scoreFusion
 
 
 def new_number():
@@ -12,15 +12,17 @@ def new_number():
 class DeuxMilleQuaranteHuit:
     def __init__(self, size=4):
         self.size = size
+        self.score = 0
         self.grid = [[Square(0)] * size for _ in range(size)]
         tab = [Square(0)] * size * size
         self.d = Display(size)
         self.add_number()
 
         while not lose(self.grid):
-            self.d.print_grid(self.grid)
             moved = False
             while not moved:
+                self.d.print_grid(self.grid)
+                self.d.print_score(self.score)
                 self.dir = self.d.newDirection()
                 if self.dir == 0:
                     self.d.quit()
@@ -72,6 +74,7 @@ class DeuxMilleQuaranteHuit:
                                         self.grid[k + self.dir // 2][j] = n
                                 else:
                                     has_moved = True
+                                    self.score = scoreFusion(self.grid[i][j].value, self.score)
                                     self.grid[k][j] = Square(fusion(self.grid[i][j].value, self.grid[k][j].value))
                                     self.grid[k][j].fusion = True
                                     self.grid[i][j] = Square(0)
@@ -100,6 +103,7 @@ class DeuxMilleQuaranteHuit:
                                         self.grid[i][k + self.dir] = n
                                 else:
                                     has_moved = True
+                                    self.score = scoreFusion(self.grid[i][j].value, self.score)
                                     self.grid[i][k] = Square(fusion(self.grid[i][j].value, self.grid[i][k].value))
                                     self.grid[i][k].fusion = True
                                     self.grid[i][j] = Square(0)
